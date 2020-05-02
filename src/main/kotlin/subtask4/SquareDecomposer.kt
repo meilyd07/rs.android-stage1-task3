@@ -5,7 +5,7 @@ class SquareDecomposer {
     // TODO: Complete the following function
     fun decomposeNumber(number: Int): Array<Int>? {
         val longNumber = number.toLong()
-        var decomposeArray = decomposeNumberAndRemaining(longNumber, longNumber*longNumber)
+        val decomposeArray = decomposeNumberAndRemaining(longNumber, longNumber*longNumber)
 
         if (decomposeArray != null) {
             decomposeArray.remove(decomposeArray.last())

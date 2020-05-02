@@ -10,7 +10,7 @@ class PolynomialConverter {
         val countItems = numbers.count()
         if (countItems == 0) return null
 
-        var resultString: StringBuilder = StringBuilder()
+        val resultString: StringBuilder = StringBuilder()
         for(i in 0 until countItems){
             val currentInt = numbers[i]
             val absCurrentInt = abs(currentInt)
