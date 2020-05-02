@@ -11,26 +11,33 @@ class ArrayCalculator {
         val filteredCount = filteredArray.count()
 
         if (filteredCount > 0) {
-            val sortedArray = Arrays.sort(filteredArray.toTypedArray(), Comparator.comparingInt(Math::abs));
+            var sortedList = filteredArray.sortedWith(Comparator.comparingInt(Math::abs)).reversed()
             var result: Int = 1
 
-            if (numberOfItems >= (sortedArray as Array<Int>).size) {
-                for (item in sortedArray) {
+            if (numberOfItems >= sortedList.size) {
+                for (item in sortedList) {
                     result *= item
                 }
                 return result
+
             } else {
                 //multiple last n numbers
-                val positiveNumbers = (sortedArray.filter { e -> e >= 0 }).toMutableList()
+                val positiveNumbers = mutableListOf<Int>()
+                for (item in sortedList) {
+                    if (item >= 0) {
+                        positiveNumbers.add(item)
+                    }
+                }
+
                 if (positiveNumbers.isEmpty() && (numberOfItems % 2 == 0)) {
                     //all negative and odd number to multiply
-                    sortedArray.reverse()
+                    sortedList = sortedList.reversed()
                 }
 
                 var lastNegativeIndex = -1
 
                 for(i in 0 until numberOfItems) {
-                    val intToMultiply = sortedArray[i]
+                    val intToMultiply = sortedList[i]
                     result *= intToMultiply
 
                     positiveNumbers.remove(intToMultiply) //removed already used
@@ -40,7 +47,7 @@ class ArrayCalculator {
                 }
 
                 if ((result < 0) && (lastNegativeIndex >= 0) && (positiveNumbers.isNotEmpty())) {
-                    result = result / sortedArray[lastNegativeIndex] * positiveNumbers.first()
+                    result = result / sortedList[lastNegativeIndex] * positiveNumbers.first()
                 }
 
                 return result
